@@ -1,41 +1,51 @@
 package com.ntg.organization.organization.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ntg.organization.organization.entity.Employee;
-import com.ntg.organization.organization.respository.EmployeeRepository;
 
 @Service
 public class EmployeeService {
 
-	@Autowired
-	private EmployeeRepository employeeRepository;
+	static List<Employee> employees = null;
+	static {
+		employees = new ArrayList<>();
+		employees.add(new Employee(1L, "Ahmed", "Ahmed@mail.com"));
+		employees.add(new Employee(2L, "Mohamed", "mohamed@mail.com"));
+	}
 
 	public List<Employee> getAllEmployee() {
-		return (List<Employee>) employeeRepository.findAll();
+		return employees;
 	}
 
-	public Employee createNewEmployee(Employee newEmp) {
+	public boolean createNewEmployee(Employee newEmp) {
+
 		if (newEmp != null) {
-			return employeeRepository.save(newEmp);
-		}
-		return null;
-	}
-
-	public boolean deleteEmployeeById(Long id) {
-		if (id != null) {
-			employeeRepository.deleteById(id);
+			employees.add(newEmp);
 			return true;
 		}
 
 		return false;
 	}
 
-	public Employee getEmployeeByName(String name, String email) {
-		return employeeRepository.findByNameAndEmail(name, email);
+	public boolean deleteEmployeeById(Long id) {
+
+		if (id != null) {
+
+			for (Employee employee : employees) {
+
+				if (employee.getId().equals(id)) {
+					employees.remove(employee);
+
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 }

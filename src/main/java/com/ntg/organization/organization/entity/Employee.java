@@ -1,12 +1,5 @@
-package com.ntg.organization.organization.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+package com.ntg.organization.organization.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,18 +12,40 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Entity(name = "employee")
 public class Employee {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
 	private Long id;
-	@Column(name = "emp_name", length = 100, nullable = false)
 	private String name;
-	@Column(name = "email", unique = true)
 	private String email;
-	@JoinColumn(name = "dept_id")
-	@ManyToOne
-	private Department daparment;
+	
+	public Employee(long id, String name, String email) {
+		this.id = id;
+		this.name = name;
+		this.email = email;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	
 }
